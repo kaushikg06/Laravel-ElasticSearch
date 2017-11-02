@@ -16,6 +16,11 @@
                     />
                 </div>
             </form>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                <button type="submit" name="btn-upload">Upload File</button>
+	            <input type="file" name="file" />   
+	        </form>
+
         </div>
     </div>
 
@@ -25,9 +30,9 @@
                 <article>
                     <h2>{{ $article->title }}</h2>
 
-                    <p>{{ $article->body }}</body>
+                    <!-- <p>{{ $article->body }}</p> -->
 
-                    <p class="well">
+                    <p class="well"> <h3> Tags:
                         {{ implode(', ', $article->tags ?: []) }}
                     </p>
                 </article>
