@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/search', function (ArticlesRepository $repository) {
     $articles = $repository->search((string) request('q'));
 
-    return view('articles.index', [
+    return view('articles.search', [
     	'articles' => $articles,
     ]);
 });
