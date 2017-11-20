@@ -17,8 +17,9 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->mediumText('body');
-            $table->json('tags');
-            $table->timestamps();
+            $table->string('tags');
+            $table->string('repositorylink');
+            $table->string('department');
         });
     }
 

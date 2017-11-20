@@ -12,6 +12,7 @@
 */
 
 use App\Articles\ArticlesRepository;
+use App\Http\Controllers\ArticlesController;
 
 Route::get('/', function () {
     return view('articles.index', [
@@ -26,3 +27,5 @@ Route::get('/search', function (ArticlesRepository $repository) {
     	'articles' => $articles,
     ]);
 });
+
+Route::post('addScript', 'ArticlesController@addScript');

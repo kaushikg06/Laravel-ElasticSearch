@@ -9,7 +9,15 @@ class Article extends Model
 {
     //
     use Searchable;
-    protected $casts = [
-        'tags' => 'json',
-    ];
+    protected $table = 'articles';
+    protected $connection = 'mysql';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
+    protected $fillable = array(
+        'title',
+        'body',
+        'tags',
+        'repositorylink',
+        'department'
+    );
 }
