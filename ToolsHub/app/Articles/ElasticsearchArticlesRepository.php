@@ -24,7 +24,7 @@ class ElasticsearchArticlesRepository implements ArticlesRepository
             'body' => [
                 'query' => [
                     'multi_match' => [
-                        'fields' => ['title', 'body', 'tags','script', 'testcol'],
+                        'fields' => ['title', 'body', 'tags','script', 'department'],
                         'query' => $query,
                     ],
                 ],

@@ -74,32 +74,52 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body" style="padding:40px 50px;">
-                <form id = "uploadForm" role="form">
+                <form id = "uploadFormIndex" role="form" enctype="multipart/form-data">
                   <div class="form-group">
-                    <input id = "addtitle" name = "title" class="form-control" type = "text" placeholder="Title" > </input>
+                    <input id = "titleIndex" name = "titleIndex" class="form-control" type = "text" placeholder="Title" > </input>
                   </div>
                   <div class="form-group">
-                    <input id = "addtags" name = "tags" class="form-control" type = "text" placeholder="Tags (comma separated. Ex: SQL, PHP etc)"> </input>
+                    <input id = "tagsIndex" name = "tagsIndex" class="form-control" type = "text" placeholder="Tags (comma separated. Ex: SQL, PHP etc)"> </input>
                   </div>
                   <div class="form-group">
-                    <input id = "adddept" name = "dept" class="form-control" type = "text" placeholder="Department"> </input>
+                    <input id = "deptIndex" name = "deptIndex" class="form-control" type = "text" placeholder="Department"> </input>
                   </div>
                   <div class="form-group">
-                    <input id = "addrepo" name = "repo" class="form-control" type = "text" placeholder="Repository Link"> </input>
+                    <input id = "repoIndex" name = "repoIndex" class="form-control" type = "text" placeholder="Repository Link"> </input>
                   </div>
                   <div class="form-group">
-                    <label for="adddesc"><strong> Description </strong> </label>
-                    <textarea id = "adddesc" name = "desc" class="form-control" type = "text" placeholder="Description - What is this script about?"> </textarea>
+                    <label for="descIndex"><strong> Description </strong> </label>
+                    <textarea id = "descIndex" name = "descIndex" class="form-control" type = "text" placeholder="Description - What is this script about?"> </textarea>
                   </div>
                   <div class="form-group">
-                    <label for="addscript"><strong> Paste Script </strong> </label>
-                    <textarea id = "addscript" name = "script" class="form-control" type = "text" placeholder="Paste the Script" rows = 15> </textarea>
+                    <label for="bodyIndex"><strong> Paste Script </strong> </label>
+                    <textarea id = "bodyIndex" name = "bodyIndex" class="form-control" type = "text" placeholder="Paste the Script" rows = 15> </textarea>
+                  </div>
+                  <div align = "center"> OR </div>
+                  <div>
+                    <label for="attachFile"><strong> Attach Script </strong> </label>
+                    <input type="file" id="attachFile" name = "attachFile">
                   </div>
                   <div class="modal-footer">
                     <input type="submit" value = "Add File"  class="btn btn-primary">
                     <button type="button" class="btn" data-dismiss="modal">Cancel</button>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="thankyouModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4><span class="glyphicon glyphicon-lock"></span>Success!</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-success">
+                  <strong> Added the script successfully! </strong>
+                </div>
               </div>
             </div>
           </div>
@@ -117,16 +137,21 @@
         }
       });
 
-      $('#uploadForm').on('submit', function(e){
+      $('#uploadFormIndex').on('submit', function(e){
         e.preventDefault();
+        var requestData = new FormData($("#uploadFormIndex")[0]);
         $.ajax({
           url: '/addScript',
-          type: 'post',
-          data: {'title': $('#addtitle').val(), 'tags': $('#addtags').val(), 'dept': $('#adddept').val(), 'repo': $('#addrepo').val(), 'desc': $('#adddesc').val(), 'script': $('#addscript').val() },
+          type: 'POST',
+          processData: false,
+          contentType: false,
+          data: requestData,
           success: function(data){
-            console.log(data);
+            $("#thankyouModal").modal('toggle');
+            $("#addModal").modal('hide');
           }
         });
+        
       });
 
     </script>

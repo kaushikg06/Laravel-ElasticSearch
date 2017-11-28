@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Article;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 
 class ArticlesController extends BaseController
@@ -17,13 +18,28 @@ class ArticlesController extends BaseController
 
     public function addScript() {
         $article = new Article();
-        $article->title = addslashes(Input::get('title'));
-        $article->body = addslashes(Input::get('script'));
-        $article->tags = addslashes(Input::get('tags'));
-        $article->repositorylink = addslashes(Input::get('repo'));
-        $article->department = addslashes(Input::get('dept'));;
-      //  $article->description = Input::get('desc');
+        // retrieving input from the form using name attribute
+
+        echo Input::get('titleIndex');
+        if(Input::hasFile('attachFile')) {
+            $file_name= Input::file('attachFile'); 
+            $fp      = fopen($file_name, 'r');
+            $content = fread($fp, filesize($file_name));
+            $article->body = addslashes($content);
+            echo  $content;
+        }
+        else {
+            $article->body = addslashes(Input::get('bodyIndex'));
+            echo $article->body;
+        }
+        $article->title = addslashes(Input::get('titleIndex'));
+        $article->tags = addslashes(Input::get('tagsIndex'));
+        $article->repositorylink = addslashes(Input::get('repoIndex'));
+        $article->department = addslashes(Input::get('deptIndex'));
+        $article->description = Input::get('descIndex');
+        
         $article->save();
+        
     }
     
 }

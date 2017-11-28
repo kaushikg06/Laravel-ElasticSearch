@@ -18,14 +18,22 @@ Route::get('/', function () {
     return view('articles.index', [
         'articles' => App\Article::all(),
     ]);
-});
+})->name('index');
 
 Route::get('/search', function (ArticlesRepository $repository) {
-    $articles = $repository->search((string) request('q'));
 
-    return view('articles.search', [
-    	'articles' => $articles,
-    ]);
+    if((string) request('q') == 'all' || (string) request('q') == "") {
+        return view('articles.search', [
+            'articles' => App\Article::all(),
+        ]); 
+    }
+    else {
+        $articles = $repository->search((string) request('q'));
+        return view('articles.search', [
+            'articles' => $articles,
+        ]);
+    }
+    
 });
 
 Route::post('addScript', 'ArticlesController@addScript');
