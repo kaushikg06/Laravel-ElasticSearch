@@ -72,7 +72,7 @@
       <div id="container">
         <div class="result">
           @forelse ($articles as $article)
-          <a data-toggle ="modal" data-whatever = "{{ $article->body }}" data-tags="{{ $article->tags }}" data-title = "{{ $article->title }}" data-target="#articleModal" href ="#articleModal">{{ $article->title }} </a>
+          <a data-toggle ="modal" data-body = "{{ $article->body }}" data-tags="{{ $article->tags }}" data-title = "{{ $article->title }}" data-desc = "{{ $article->description }}" data-target="#articleModal" href ="#articleModal">{{ $article->title }} </a>
           <p class = "snippet">Tags: {{ $article->tags }} </p> 
           @empty
           <p class = "snippet">No articles found</p>
@@ -95,6 +95,7 @@
                   </div>
                   <div class="form-group">
                     <label for="descriptiondetails"><strong> Description </strong> </label>
+                    <input id = "descriptiondetails" class="form-control" type = "text" readonly = true> </input>
                   </div>
                   <div class="form-group">
                     <label for="tagsdetails"><strong> Tags </strong> </label>
@@ -189,9 +190,10 @@
     <script>
       $('#articleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
-        var body = button.data('whatever')
+        var body = button.data('body')
         var title = button.data('title')
         var tags = button.data('tags')
+        var desc = button.data('desc')
         // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -199,6 +201,7 @@
         modal.find('.modal-body textarea').val(body)
         modal.find('#titledetails').val(title)
         modal.find('#tagsdetails').val(tags)
+        modal.find('#descriptiondetails').val(desc)
         $('#file').tooltip({
         trigger: 'click',
         placement: 'top'

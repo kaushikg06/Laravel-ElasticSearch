@@ -18,6 +18,7 @@ class Article extends Model
         'body',
         'tags',
         'repositorylink',
-        'department'
+        'department',
+        'description'
     );
 }
